@@ -23,7 +23,7 @@ export class CreateLeaveDto {
   end_date: Date;
 
   @IsNotEmpty()
-  no_of_date: number;
+  no_of_days: number;
 
   @IsNotEmpty()
   approved_by: string;

@@ -21,7 +21,7 @@ export class Leave {
   end_date: Date;
 
   @Column({ type: 'int' })
-  no_of_date: number;
+  no_of_days: number;
 
   @Column({ type: 'string', length: 100 })
   approved_by: string;
