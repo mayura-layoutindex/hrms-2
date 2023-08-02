@@ -9,11 +9,9 @@ export class PunchInDto {
   @IsNotEmpty()
   date: string;
 
-  @IsString()
   @IsNotEmpty()
   clock_in: Date;
 
-  @IsString()
   clock_out: Date;
 
   @IsString()

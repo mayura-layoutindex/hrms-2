@@ -7,6 +7,7 @@ import { EmployeeService } from './employee/employee.service';
 import { AttendanceModule } from './attendance/attendance.module';
 import { AttendanceService } from './attendance/attendance.service';
 import { AttendanceController } from './attendance/attendance.controller';
+import { LeaveModule } from './leave/leave.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AttendanceController } from './attendance/attendance.controller';
     ConfigModule.forRoot({ isGlobal: true }),
     EmployeeModule,
     AttendanceModule,
+    LeaveModule,
   ],
   controllers: [EmployeeController, AttendanceController],
   providers: [EmployeeService, AttendanceService],
