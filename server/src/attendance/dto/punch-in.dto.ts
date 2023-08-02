@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateAttendanceDto {
+export class PunchInDto {
   @IsString()
   @IsNotEmpty()
   employee_id: string;
@@ -11,11 +11,10 @@ export class CreateAttendanceDto {
 
   @IsString()
   @IsNotEmpty()
-  clock_in: string;
+  clock_in: Date;
 
   @IsString()
-  @IsNotEmpty()
-  clock_out: string;
+  clock_out: Date;
 
   @IsString()
   @IsNotEmpty()

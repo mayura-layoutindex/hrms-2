@@ -8,21 +8,21 @@ import {
   Delete,
 } from '@nestjs/common';
 import { AttendanceService } from './attendance.service';
-import { CreateAttendanceDto } from './dto/create-attendance.dto';
-import { UpdateAttendanceDto } from './dto/update-attendance.dto';
+import { PunchInDto } from './dto/punch-in.dto';
+import { PunchOutDto } from './dto/punch-out.dto';
 
 @Controller('attendance')
 export class AttendanceController {
   constructor(private readonly attendanceService: AttendanceService) {}
 
-  @Post('create-attendance')
-  create(@Body() createAttendanceDto: CreateAttendanceDto) {
-    return this.attendanceService.create(createAttendanceDto);
+  @Post()
+  punchIn(@Body() punchInDto: PunchInDto) {
+    return this.attendanceService.punchIn(punchInDto);
   }
 
   @Get()
   findAll() {
-    return this.attendanceService.findAllAttendance();
+    return this.attendanceService.findAllAttendances();
   }
 
   @Get(':id')
@@ -31,11 +31,23 @@ export class AttendanceController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateAttendanceDto: UpdateAttendanceDto,
+  punchOut(@Param('id') id: string, @Body() punchOutDto: PunchOutDto) {
+    return this.attendanceService.punchOut(id, punchOutDto);
+  }
+
+  @Get('get-total-duration')
+  findTotalDurationById(
+    @Body() employeeId: string,
+    @Body() startDate: string,
+    @Body() endDate: string,
   ) {
-    return this.attendanceService.update(+id, updateAttendanceDto);
+    console.log(employeeId);
+
+    return this.attendanceService.findTotalDurationById(
+      employeeId,
+      startDate,
+      endDate,
+    );
   }
 
   @Delete(':id')

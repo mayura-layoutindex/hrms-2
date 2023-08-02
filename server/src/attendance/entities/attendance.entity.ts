@@ -11,12 +11,12 @@ export class Attendance {
   @Column({ type: 'varchar', length: 100 })
   date: string;
 
-  @Column({ type: 'varchar', length: 100 })
-  clock_in: string;
+  @Column({ type: 'timestamp' })
+  clock_in: Date;
 
-  @Column({ type: 'varchar', length: 100 })
-  clock_out: string;
+  @Column({ type: 'timestamp', nullable: true })
+  clock_out: Date;
 
-  @Column({ type: 'varchar', length: 100 })
+  @Column({ type: 'interval', nullable: true })
   total_work_time: string;
 }
