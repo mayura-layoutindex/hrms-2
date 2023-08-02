@@ -1,0 +1,13 @@
+employee
+- employee_id
+- nic
+- first_name
+- last_name
+- dob
+- phone_number
+- address
+- work_experience(years)
+- start_date
+- type_of_employee
+- gender
+- marital_status
