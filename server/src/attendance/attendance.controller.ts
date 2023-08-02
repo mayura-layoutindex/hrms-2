@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { AttendanceService } from './attendance.service';
 import { PunchInDto } from './dto/punch-in.dto';
@@ -25,23 +26,18 @@ export class AttendanceController {
     return this.attendanceService.findAllAttendances();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.attendanceService.findOne(+id);
-  }
-
   @Patch(':id')
   punchOut(@Param('id') id: string, @Body() punchOutDto: PunchOutDto) {
     return this.attendanceService.punchOut(id, punchOutDto);
   }
 
-  @Get('get-total-duration')
+  @Get('duration')
   findTotalDurationById(
-    @Body() employeeId: string,
-    @Body() startDate: string,
-    @Body() endDate: string,
+    @Query('employeeId') employeeId: string,
+    @Query('startDate') startDate: string,
+    @Query('endDate') endDate: string,
   ) {
-    console.log(employeeId);
+    console.log(employeeId, startDate, endDate);
 
     return this.attendanceService.findTotalDurationById(
       employeeId,

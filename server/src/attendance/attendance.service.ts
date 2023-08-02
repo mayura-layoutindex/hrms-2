@@ -5,6 +5,7 @@ import { DataSource, EntityManager, Between, Not, IsNull } from 'typeorm';
 import { Attendance } from './entities/attendance.entity';
 import * as dayjs from 'dayjs';
 import * as duration from 'dayjs/plugin/duration';
+import { PostgresInterval } from 'pg';
 
 dayjs.extend(duration);
 
@@ -90,26 +91,45 @@ export class AttendanceService {
     start_date: string,
     end_date: string,
   ) {
-    console.log(employee_id, start_date, end_date);
+    try {
+      const attends = await this.manager.find(Attendance, {
+        where: {
+          employee_id,
+          clock_in: Between(new Date(start_date), new Date(end_date)),
+          clock_out: Not(IsNull()),
+        },
+      });
 
-    // try {
-    //   const attends = await this.manager.find(Attendance, {
-    //     where: {
-    //       employee_id,
-    //       clock_in: Between(start_date, end_date),
-    //       clock_out: Not(IsNull()),
-    //     },
-    //   });
+      let totalDuration = dayjs.duration(0);
 
-    //   console.log('attend: ', attends);
-    //   // '2023-08-01T00:00:00.000Z'
+      attends.forEach((attendance) => {
+        const {
+          hours = 0,
+          minutes = 0,
+          seconds = 0,
+          milliseconds = 0,
+        } = attendance.total_work_time as PostgresInterval;
+        const duration = dayjs.duration({
+          hours,
+          minutes,
+          seconds,
+          milliseconds,
+        });
+        totalDuration = totalDuration.add(duration);
+      });
 
-    //   // if (attend.length === 0)
-    // } catch (error) {}
-  }
+      const totalDurationObject = {
+        years: totalDuration.years(),
+        months: totalDuration.months(),
+        days: totalDuration.days(),
+        hours: totalDuration.hours(),
+        minutes: totalDuration.minutes(),
+        seconds: totalDuration.seconds(),
+        milliseconds: totalDuration.milliseconds(),
+      };
 
-  findOne(id: number) {
-    return `This action returns a #${id} attendance`;
+      return { totalDuration: totalDurationObject };
+    } catch (error) {}
   }
 
   remove(id: number) {
