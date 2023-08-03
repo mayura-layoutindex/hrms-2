@@ -21,22 +21,22 @@ export class LeaveController {
   }
 
   @Get()
-  findAll() {
-    return this.leaveService.findAll();
+  getAllLeaves() {
+    return this.leaveService.getAllLeaves();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.leaveService.findOne(+id);
+  findLeavesByEmployee(@Param('id') id: string) {
+    return this.leaveService.getLeavesByEmployeeId(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLeaveDto: UpdateLeaveDto) {
-    return this.leaveService.update(+id, updateLeaveDto);
+  updateLeave(@Param('id') id: string, @Body() updateLeaveDto: UpdateLeaveDto) {
+    return this.leaveService.updateLeave(id, updateLeaveDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.leaveService.remove(+id);
+    return this.leaveService.removeLeave(id);
   }
 }

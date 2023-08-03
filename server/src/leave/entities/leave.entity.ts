@@ -23,9 +23,12 @@ export class Leave {
   @Column({ type: 'int' })
   no_of_days: number;
 
-  @Column({ type: 'string', length: 100 })
+  @Column({ type: 'varchar', length: 100 })
   approved_by: string;
 
-  @Column({ type: 'string', length: 200 })
+  @Column({ type: 'varchar', length: 200 })
   description: string;
+
+  @Column({ type: 'varchar', length: 50 })
+  status: string;
 }

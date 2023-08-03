@@ -45,9 +45,4 @@ export class AttendanceController {
       endDate,
     );
   }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.attendanceService.remove(+id);
-  }
 }

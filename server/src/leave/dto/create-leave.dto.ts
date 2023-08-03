@@ -30,4 +30,7 @@ export class CreateLeaveDto {
 
   @IsNotEmpty()
   description: string;
+
+  @IsNotEmpty()
+  status: string;
 }

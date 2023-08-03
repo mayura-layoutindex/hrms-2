@@ -131,8 +131,4 @@ export class AttendanceService {
       return { totalDuration: totalDurationObject };
     } catch (error) {}
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} attendance`;
-  }
 }

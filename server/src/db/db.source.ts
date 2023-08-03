@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { Attendance } from 'src/attendance/entities/attendance.entity';
 import { Employee } from 'src/employee/entities/employee.entity';
+import { Leave } from 'src/leave/entities/leave.entity';
 import { DataSource } from 'typeorm';
 
 export const DbConnection = [
@@ -15,7 +16,7 @@ export const DbConnection = [
         password: 'root',
         database: 'hrms',
         synchronize: true,
-        entities: [Employee, Attendance],
+        entities: [Employee, Attendance, Leave],
         logging: true,
       });
 
