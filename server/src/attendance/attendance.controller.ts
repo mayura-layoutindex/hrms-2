@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { AttendanceService } from './attendance.service';
 import { PunchInDto } from './dto/punch-in.dto';
-import { PunchOutDto } from './dto/punch-out.dto';
 
 @Controller('attendance')
 export class AttendanceController {
