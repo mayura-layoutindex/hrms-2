@@ -117,7 +117,7 @@ export class EmployeeService {
 
       return 'Delete employee successfully';
     } catch (error) {
-      throw new Error(`${error.message}`);
+      throw new Error(error.message);
     }
   }
 }
