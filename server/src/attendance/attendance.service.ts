@@ -40,7 +40,7 @@ export class AttendanceService {
     }
   }
 
-  async punchOut(attendance_id: string, punchOutDto: PunchOutDto) {
+  async punchOut(attendance_id: string) {
     try {
       const attend = await this.manager.findOne(Attendance, {
         where: { attendance_id },
@@ -72,7 +72,7 @@ export class AttendanceService {
     }
   }
 
-  async findAllAttendances() {
+  async getAllAttendances() {
     try {
       const attendances = await this.manager.find(Attendance);
 
@@ -129,6 +129,8 @@ export class AttendanceService {
       };
 
       return { totalDuration: totalDurationObject };
-    } catch (error) {}
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 }
