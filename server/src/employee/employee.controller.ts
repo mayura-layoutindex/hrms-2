@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  Put,
 } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
@@ -31,7 +30,7 @@ export class EmployeeController {
     return this.employeeService.getEmployeeById(employee_id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   async updateEmployee(
     @Param('id') employee_id: string,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
