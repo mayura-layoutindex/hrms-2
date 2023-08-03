@@ -17,18 +17,18 @@ export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 
   @Post()
-  async create(@Body() createEmployeeDto: CreateEmployeeDto) {
-    return this.employeeService.createEmployee(createEmployeeDto);
+  async addAnEmployee(@Body() createEmployeeDto: CreateEmployeeDto) {
+    return this.employeeService.addAnEmployee(createEmployeeDto);
   }
 
   @Get()
-  async findAll() {
-    return this.employeeService.findAllEmployees();
+  async getAllEmployees() {
+    return this.employeeService.getAllEmployees();
   }
 
   @Get(':id')
-  async findOne(@Param('id') employee_id: string) {
-    return this.employeeService.findEmployeeById(employee_id);
+  async getEmployeeById(@Param('id') employee_id: string) {
+    return this.employeeService.getEmployeeById(employee_id);
   }
 
   @Put(':id')

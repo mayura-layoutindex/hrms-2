@@ -14,7 +14,7 @@ export class EmployeeService {
     this.manager = this.dataSource.manager;
   }
 
-  async createEmployee(createEmployeeDto: CreateEmployeeDto) {
+  async addAnEmployee(createEmployeeDto: CreateEmployeeDto) {
     try {
       const employee = await this.manager.findOneBy(Employee, {
         nic: createEmployeeDto.nic,
@@ -24,7 +24,7 @@ export class EmployeeService {
         throw new Error('Employee is already exists!');
       }
 
-      const createEmployee = await this.manager.create(Employee, {
+      const newEmployee = await this.manager.create(Employee, {
         nic: createEmployeeDto.nic,
         first_name: createEmployeeDto.first_name,
         last_name: createEmployeeDto.last_name,
@@ -38,15 +38,15 @@ export class EmployeeService {
         marital_status: createEmployeeDto.marital_status,
       });
 
-      await this.manager.save(Employee, createEmployee);
+      await this.manager.save(Employee, newEmployee);
 
-      return { msg: 'Employee created successfully', createEmployee };
+      return { msg: 'Employee added successfully', newEmployee };
     } catch (error) {
-      throw new NotFoundException(`${error.message}`);
+      throw new NotFoundException(error.message);
     }
   }
 
-  async findAllEmployees() {
+  async getAllEmployees() {
     try {
       const employees = await this.manager.find(Employee);
 
@@ -56,21 +56,21 @@ export class EmployeeService {
 
       return { msg: 'Get Data Successfully', data: employees };
     } catch (error) {
-      throw new NotFoundException(`${error.message}`);
+      throw new NotFoundException(error.message);
     }
   }
 
-  async findEmployeeById(employee_id: string) {
+  async getEmployeeById(employee_id: string) {
     try {
       const employee = await this.manager.findOneBy(Employee, { employee_id });
 
       if (!employee) {
-        throw new Error('Data is not found');
+        throw new Error('Employee is not found');
       }
 
       return { msg: 'Get Data Successfully', data: employee };
     } catch (error) {
-      throw new NotFoundException(`${error.message}`);
+      throw new NotFoundException(error.message);
     }
   }
 
@@ -85,31 +85,31 @@ export class EmployeeService {
         throw new Error('Employee is not found');
       }
 
-      (employee.nic = updateEmployeeDto.nic),
-        (employee.first_name = updateEmployeeDto.first_name),
-        (employee.last_name = updateEmployeeDto.last_name),
-        (employee.gender = updateEmployeeDto.gender),
-        (employee.date_of_birth = updateEmployeeDto.date_of_birth),
-        (employee.phone_number = updateEmployeeDto.phone_number),
-        (employee.address = updateEmployeeDto.address),
-        (employee.work_experience = updateEmployeeDto.work_experience),
-        (employee.hired_date = updateEmployeeDto.hired_date),
-        (employee.department = updateEmployeeDto.department),
-        (employee.marital_status = updateEmployeeDto.marital_status);
+      employee.nic = updateEmployeeDto.nic;
+      employee.first_name = updateEmployeeDto.first_name;
+      employee.last_name = updateEmployeeDto.last_name;
+      employee.gender = updateEmployeeDto.gender;
+      employee.date_of_birth = updateEmployeeDto.date_of_birth;
+      employee.phone_number = updateEmployeeDto.phone_number;
+      employee.address = updateEmployeeDto.address;
+      employee.work_experience = updateEmployeeDto.work_experience;
+      employee.hired_date = updateEmployeeDto.hired_date;
+      employee.department = updateEmployeeDto.department;
+      employee.marital_status = updateEmployeeDto.marital_status;
 
       await this.manager.update(Employee, employee_id, employee);
 
-      return { msg: 'User update successfully', employee };
+      return { msg: 'Employee update successfully', employee };
     } catch (error) {
-      throw new NotFoundException(`${error.message}`);
+      throw new NotFoundException(error.message);
     }
   }
 
   async deleteEmployee(employee_id: string) {
     try {
-      const user = await this.manager.findOneBy(Employee, { employee_id });
+      const employee = await this.manager.findOneBy(Employee, { employee_id });
 
-      if (!user) {
+      if (!employee) {
         throw new Error('Employee is not found');
       }
 
